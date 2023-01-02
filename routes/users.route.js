@@ -7,3 +7,5 @@ router.get("/:id", verifyToken, getUser);
 router.get("/:id/friends", verifyToken, getFriends);
 
 router.patch("/:id/:friendId", verifyToken, updateFriendship);
+
+module.exports = router;
