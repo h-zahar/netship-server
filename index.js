@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const path = require("path");
 const { fileURLToPath } = require("url");
+const { upload } = require("./multer/multer.config");
 
 dotenv.config();
 
@@ -27,16 +28,8 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "public/assets");
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    }
-});
-
-const upload = multer({ storage });
+// routes
+app.use("/api", require("./routes"));
 
 // mongoose setup
 mongoose.set('strictQuery', true);
@@ -50,3 +43,7 @@ mongoose.connect(process.env.MONGO_URI, {
     });
 })
 .catch((error) => console.log(error));
+
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
