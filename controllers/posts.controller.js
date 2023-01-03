@@ -118,5 +118,6 @@ const getUserPosts = async (req, res) => {
 module.exports = {
     createPost,
     getPosts,
+    reactPost,
     getUserPosts
 }
